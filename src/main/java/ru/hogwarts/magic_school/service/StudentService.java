@@ -2,6 +2,7 @@ package ru.hogwarts.magic_school.service;
 
 import ru.hogwarts.magic_school.model.Student;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface StudentService {
@@ -13,5 +14,5 @@ public interface StudentService {
 
     void remove(Long id);
 
-   List<Student> getStudentByAge(int age);
+    Collection<Student> studentsInAge(int age);
 }

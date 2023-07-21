@@ -6,6 +6,7 @@ import ru.hogwarts.magic_school.model.Student;
 import ru.hogwarts.magic_school.service.StudentService;
 
 
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -52,9 +53,9 @@ public class StudentController {
     }
 
     @GetMapping("/by-age")
-    public List<Student> getStudentByAge(@RequestParam int age) {
+    public Collection<Student> getStudentByAge(@RequestParam int age) {
 
-        return studentService.getStudentByAge(age);
+        return studentService.studentsInAge(age);
     }
 
 

@@ -1,19 +1,19 @@
 package ru.hogwarts.magic_school.service.impl;
 
-import org.springframework.data.domain.Sort;
 
 import org.springframework.stereotype.Service;
 import ru.hogwarts.magic_school.model.Faculty;
 import ru.hogwarts.magic_school.repository.FacultyRepository;
 import ru.hogwarts.magic_school.service.FacultyService;
 
-import java.util.List;
+import java.util.Collection;
+
 
 
 @Service
 public class FacultyServiceImpl implements FacultyService {
 
-    private FacultyRepository facultyRepository;
+    private final FacultyRepository facultyRepository;
 
     public FacultyServiceImpl(FacultyRepository facultyRepository) {
         this.facultyRepository = facultyRepository;
@@ -42,8 +42,9 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     @Override
-    public List<Faculty> getFacultiesByColor(String color) {
-        return facultyRepository.findAll(Sort.by(Sort.Direction.ASC,color));
+    public Collection<Faculty> facultiesOfColor(String color) {
+        return facultyRepository.findByColor(color);
     }
+
 
 }

@@ -8,6 +8,7 @@ import ru.hogwarts.magic_school.repository.StudentRepository;
 import ru.hogwarts.magic_school.service.StudentService;
 
 
+import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -45,7 +46,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> getStudentByAge(int age) {
-        return studentRepository.findAll(Sort.by(Sort.Direction.ASC, String.valueOf(age)));
+    public Collection<Student> studentsInAge(int age) {
+        return studentRepository.findByAge(age);
     }
 }
