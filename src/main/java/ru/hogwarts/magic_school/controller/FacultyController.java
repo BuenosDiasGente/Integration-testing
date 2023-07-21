@@ -1,9 +1,10 @@
-package ru.hogwarts.school.controller;
+package ru.hogwarts.magic_school.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.hogwarts.school.model.Faculty;
-import ru.hogwarts.school.service.FacultyService;
+import ru.hogwarts.magic_school.model.Faculty;
+import ru.hogwarts.magic_school.service.FacultyService;
+
 
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class FacultyController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity <Void> remove (@PathVariable Long id) {
+    public ResponseEntity  remove (@PathVariable Long id) {
         facultyService.remove(id);
         return ResponseEntity.ok().build();
     }

@@ -1,11 +1,11 @@
-package ru.hogwarts.school.repository;
+package ru.hogwarts.magic_school.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.hogwarts.school.model.Student;
+import ru.hogwarts.magic_school.model.Student;
 
 import java.util.List;
 
 public interface StudentRepository extends JpaRepository<Student, Long> {
-    List findByOrderByAgeAsc(int age);
+     List<Student> findByOrderByAgeAsc(int age);
 
 }

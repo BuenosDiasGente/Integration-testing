@@ -1,10 +1,11 @@
-package service.impl;
+package ru.hogwarts.magic_school.service.impl;
 
 import org.springframework.data.domain.Sort;
+
 import org.springframework.stereotype.Service;
-import ru.hogwarts.school.model.Faculty;
-import ru.hogwarts.school.repository.FacultyRepository;
-import ru.hogwarts.school.service.FacultyService;
+import ru.hogwarts.magic_school.model.Faculty;
+import ru.hogwarts.magic_school.repository.FacultyRepository;
+import ru.hogwarts.magic_school.service.FacultyService;
 
 import java.util.List;
 

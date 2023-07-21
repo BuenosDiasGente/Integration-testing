@@ -1,12 +1,14 @@
-package service.impl;
+package ru.hogwarts.magic_school.service.impl;
+
+import org.springframework.data.domain.Sort;
 
 import org.springframework.stereotype.Service;
-import ru.hogwarts.school.model.Student;
-import ru.hogwarts.school.repository.StudentRepository;
-import ru.hogwarts.school.service.StudentService;
+import ru.hogwarts.magic_school.model.Student;
+import ru.hogwarts.magic_school.repository.StudentRepository;
+import ru.hogwarts.magic_school.service.StudentService;
+
 
 import java.util.List;
-
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -44,7 +46,6 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Student> getStudentByAge(int age) {
-       return null;
-      // return studentRepository.findAll(Sort.by(Sort.Direction.ASC,age));
+        return studentRepository.findAll(Sort.by(Sort.Direction.ASC, String.valueOf(age)));
     }
 }
