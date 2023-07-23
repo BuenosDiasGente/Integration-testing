@@ -6,8 +6,7 @@ import ru.hogwarts.magic_school.model.Faculty;
 import ru.hogwarts.magic_school.repository.FacultyRepository;
 import ru.hogwarts.magic_school.service.FacultyService;
 
-import java.util.Collection;
-
+import java.util.List;
 
 
 @Service
@@ -31,8 +30,8 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     @Override
-    public Faculty update( Faculty faculty) {
-     return facultyRepository.save(faculty);
+    public Faculty update(Faculty faculty) {
+        return facultyRepository.save(faculty);
     }
 
     @Override
@@ -42,7 +41,7 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     @Override
-    public Collection<Faculty> facultiesOfColor(String color) {
+    public List<Faculty> facultiesOfColor(String color) {
         return facultyRepository.findByColor(color);
     }
 

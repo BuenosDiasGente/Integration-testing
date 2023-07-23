@@ -4,8 +4,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.magic_school.model.Faculty;
 import ru.hogwarts.magic_school.service.FacultyService;
-
-
 import java.util.Collection;
 import java.util.List;
 
@@ -50,7 +48,7 @@ public class FacultyController {
     }
 
     @GetMapping("/by-color")
-    public Collection<Faculty> facultiesOfColor(@RequestParam String color) {
+    public List<Faculty> facultiesOfColor(@RequestParam String color) {
         return facultyService.facultiesOfColor(color);
     }
 

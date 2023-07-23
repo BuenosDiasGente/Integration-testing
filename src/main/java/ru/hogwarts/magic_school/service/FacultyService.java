@@ -14,5 +14,5 @@ public interface FacultyService {
 
     void remove(Long id);
 
-    Collection<Faculty> facultiesOfColor(String color);
+    List<Faculty> facultiesOfColor(String color);
 }

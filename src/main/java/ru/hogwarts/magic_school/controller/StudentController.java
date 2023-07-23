@@ -47,16 +47,17 @@ public class StudentController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity  remove(@PathVariable Long id) {
+    public ResponseEntity remove(@PathVariable Long id) {
         studentService.remove(id);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/by-age")
-    public Collection<Student> getStudentByAge(@RequestParam int age) {
+    public List<Student> getStudentByAge(@RequestParam int age) {
 
         return studentService.studentsInAge(age);
     }
-
-
 }
+
+
+
