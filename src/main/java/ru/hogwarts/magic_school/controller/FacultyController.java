@@ -4,7 +4,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.magic_school.model.Faculty;
 import ru.hogwarts.magic_school.service.FacultyService;
-import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -42,7 +41,7 @@ public class FacultyController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity  remove (@PathVariable Long id) {
+    public ResponseEntity <Void> remove (@PathVariable Long id) {
         facultyService.remove(id);
         return ResponseEntity.ok().build();
     }
