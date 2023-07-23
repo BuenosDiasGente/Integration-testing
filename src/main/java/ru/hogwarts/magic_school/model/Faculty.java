@@ -1,12 +1,12 @@
 package ru.hogwarts.magic_school.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import java.util.List;
 
 @Data
 @EqualsAndHashCode
@@ -19,5 +19,9 @@ public class Faculty {
 
     private String name;
     private String color;
+
+    @OneToMany(mappedBy = "faculty")
+    @JsonIgnore
+    private List<Student> student;
 
 }

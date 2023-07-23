@@ -1,6 +1,7 @@
 package ru.hogwarts.magic_school.service;
 
 import ru.hogwarts.magic_school.model.Faculty;
+import ru.hogwarts.magic_school.model.Student;
 
 import java.util.Collection;
 import java.util.List;
@@ -15,4 +16,7 @@ public interface FacultyService {
     void remove(Long id);
 
     List<Faculty> facultiesOfColor(String color);
+    List<Faculty> facultiesFindByColor(String color);
+    List<Faculty> facultiesFindByName(String name);
+    List<Student> getStudentByFaculty(Long id);
 }

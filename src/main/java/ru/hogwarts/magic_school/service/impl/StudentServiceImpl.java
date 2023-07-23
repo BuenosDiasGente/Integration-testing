@@ -3,6 +3,7 @@ package ru.hogwarts.magic_school.service.impl;
 import org.springframework.data.domain.Sort;
 
 import org.springframework.stereotype.Service;
+import ru.hogwarts.magic_school.model.Faculty;
 import ru.hogwarts.magic_school.model.Student;
 import ru.hogwarts.magic_school.repository.StudentRepository;
 import ru.hogwarts.magic_school.service.StudentService;
@@ -47,6 +48,16 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Student> studentsInAge(int age) {
+
         return studentRepository.findByAge(age);
     }
+    @Override
+    public List<Student>  getStudentByAgeBetween(int ageMin,int ageMax){
+        return studentRepository.findByAgeBetween(ageMin, ageMax);
+    }
+    @Override
+    public  Faculty getFacultyByStudent(Long id){
+        return studentRepository.findById(id).get().getFaculty();
+    }
+
 }

@@ -3,7 +3,9 @@ package ru.hogwarts.magic_school.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.magic_school.model.Faculty;
+import ru.hogwarts.magic_school.model.Student;
 import ru.hogwarts.magic_school.service.FacultyService;
+
 import java.util.List;
 
 @RestController
@@ -24,6 +26,14 @@ public class FacultyController {
         }
         return ResponseEntity.ok(faculty);
     }
+    @GetMapping("/{id}/students")
+    public ResponseEntity<List<Student>> getStudentByFaculty(@PathVariable Long id) {
+        List<Student> studentSaveIdFaculty = facultyService.getStudentByFaculty(id);
+        if (studentSaveIdFaculty == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(studentSaveIdFaculty);
+    }
 
     @PostMapping()
     public Faculty add(@RequestBody Faculty faculty) {
@@ -31,7 +41,7 @@ public class FacultyController {
     }
 
     @PutMapping()
-    public ResponseEntity<Faculty> update( @RequestBody Faculty faculty) {
+    public ResponseEntity<Faculty> update(@RequestBody Faculty faculty) {
         Faculty savedFaculty = facultyService.update(faculty);
         if (savedFaculty == null) {
             return ResponseEntity.badRequest().build();
@@ -41,14 +51,29 @@ public class FacultyController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity <Void> remove (@PathVariable Long id) {
+    public ResponseEntity<Void> remove(@PathVariable Long id) {
         facultyService.remove(id);
         return ResponseEntity.ok().build();
     }
 
     @GetMapping("/by-color")
     public List<Faculty> facultiesOfColor(@RequestParam String color) {
+
         return facultyService.facultiesOfColor(color);
     }
 
+    @GetMapping("/by-color-or-name")
+    public ResponseEntity<List<Faculty>> facultiesOfColor(@RequestParam(required = false) String color,
+                                                          @RequestParam(required = false) String name) {
+        if (color != null && !color.isBlank()) {
+
+            return ResponseEntity.ok(facultyService.facultiesFindByColor(color));
+        }
+        if (name != null && !name.isBlank()) {
+            return ResponseEntity.ok(facultyService.facultiesFindByName(name));
+
+        }
+
+        return ResponseEntity.badRequest().build();
+    }
 }

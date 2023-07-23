@@ -1,5 +1,7 @@
 package ru.hogwarts.magic_school.service;
 
+import org.springframework.web.bind.annotation.PathVariable;
+import ru.hogwarts.magic_school.model.Faculty;
 import ru.hogwarts.magic_school.model.Student;
 
 import java.util.Collection;
@@ -15,4 +17,6 @@ public interface StudentService {
     void remove(Long id);
 
     List<Student> studentsInAge(int age);
+    List<Student>  getStudentByAgeBetween(int ageMin,int ageMax);
+    Faculty getFacultyByStudent(Long id);
 }
