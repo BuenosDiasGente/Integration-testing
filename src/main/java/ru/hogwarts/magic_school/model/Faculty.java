@@ -20,8 +20,20 @@ public class Faculty {
     private String name;
     private String color;
 
+
+
     @OneToMany(mappedBy = "faculty")
     @JsonIgnore
     private List<Student> student;
 
+
+    public Faculty() {
+
+    }
+    public Faculty(Long id, String name, String color, List<Student> student) {
+        this.id = id;
+        this.name = name;
+        this.color = color;
+        this.student = student;
+    }
 }
