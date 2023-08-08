@@ -8,7 +8,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import ru.hogwarts.magic_school.model.Faculty;
 import ru.hogwarts.magic_school.model.Student;
 import ru.hogwarts.magic_school.service.StudentService;
@@ -20,7 +19,6 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static ru.hogwarts.magic_school.controller.PrepareTestObject.*;
 
 @WebMvcTest(StudentController.class)
 public class StudentControllerWebMvcTest {
@@ -37,7 +35,7 @@ public class StudentControllerWebMvcTest {
     void shouldGetStudentById() throws Exception {
 
         Student student = new Student();
-        student.setId(1l);
+        student.setId(1L);
         student.setName("Gari");
         student.setAge(20);
         when(studentService.get(1)).thenReturn(student);
@@ -70,7 +68,7 @@ public class StudentControllerWebMvcTest {
     @Test
     void shouldGetFacultyByStudentId() throws Exception {
         Faculty faculty = new Faculty();
-        faculty.setId(1l);
+        faculty.setId(1L);
         faculty.setName("Home");
         faculty.setColor("black");
 
@@ -93,7 +91,7 @@ public class StudentControllerWebMvcTest {
     @Test
     void shouldCreateStudent() throws Exception {
         Student student = new Student();
-        student.setId(1l);
+        student.setId(1L);
         student.setName("Gari");
         student.setAge(20);
 
@@ -116,7 +114,7 @@ public class StudentControllerWebMvcTest {
     @Test
     void shouldUpdateStudent() throws Exception {
         Student student = new Student();
-        student.setId(1l);
+        student.setId(1L);
         student.setName("Gari");
         student.setAge(20);
 
@@ -150,7 +148,7 @@ public class StudentControllerWebMvcTest {
     @Test
     void shouldDeleteStudentById() throws Exception {
         Student student = new Student();
-        student.setId(1l);
+        student.setId(1L);
         student.setName("Gari");
         student.setAge(20);
 
@@ -166,11 +164,11 @@ public class StudentControllerWebMvcTest {
     @Test
     void shouldGetStudentByAge() throws Exception {
         Student student = new Student();
-        student.setId(1l);
+        student.setId(1L);
         student.setName("Gari");
         student.setAge(20);
         Student student1 = new Student();
-        student.setId(12l);
+        student.setId(12L);
         student.setName("Ilona");
         student.setAge(25);
         List<Student> studentList =new ArrayList<>();
@@ -195,11 +193,11 @@ public class StudentControllerWebMvcTest {
     @Test
     void shouldGetStudentByAgeBetween() throws Exception {
         Student student = new Student();
-        student.setId(1l);
+        student.setId(1L);
         student.setName("Gari");
         student.setAge(20);
         Student student1 = new Student();
-        student.setId(12l);
+        student.setId(12L);
         student.setName("Ilona");
         student.setAge(25);
         List<Student> studentList =new ArrayList<>();
