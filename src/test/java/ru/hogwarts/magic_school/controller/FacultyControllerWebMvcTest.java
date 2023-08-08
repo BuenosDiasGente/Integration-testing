@@ -13,6 +13,7 @@ import ru.hogwarts.magic_school.model.Faculty;
 import ru.hogwarts.magic_school.model.Student;
 import ru.hogwarts.magic_school.service.FacultyService;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -158,35 +159,94 @@ public class FacultyControllerWebMvcTest {
     }
     @Test
     void shouldGetFacultyByColor() throws Exception {
-        String color="black";
+        Faculty faculty=new Faculty();
+        faculty.setId(1l);
+        faculty.setName("Home");
+        faculty.setColor("black");
 
-        when(facultyService.facultiesFindByColor("black")).thenReturn(facultyList());
+        Faculty faculty1=new Faculty();
+        faculty1.setId(2l);
+        faculty1.setName("Rive");
+        faculty1.setColor("black");
 
-        ResultActions resultActions = mockMvc.perform(get("/faculty/by-color/"+"black")
+        List<Faculty> facultyList =new ArrayList<>();
+        facultyList.add(faculty);
+        facultyList.add(faculty1);
+
+        when(facultyService.facultiesFindByColor("black")).thenReturn(facultyList);
+
+        ResultActions resultActions = mockMvc.perform(get("/faculty/by-color")
+                .param("color", "black")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
         );
         resultActions
                 .andExpect(status().isOk())
-               .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(facultyList().get(1))));
+                .andExpect(content().json(objectMapper.writeValueAsString(facultyList)));
+
+    }
+
+
+
+    @Test
+    void shouldGetFacultyOfColor() throws Exception {
+        Faculty faculty=new Faculty();
+        faculty.setId(1l);
+        faculty.setName("Home");
+        faculty.setColor("black");
+
+        Faculty faculty1=new Faculty();
+        faculty1.setId(2l);
+        faculty1.setName("Rive");
+        faculty1.setColor("black");
+
+        List<Faculty> facultyList =new ArrayList<>();
+        facultyList.add(faculty);
+        facultyList.add(faculty1);
+
+
+        when(facultyService.facultiesFindByColor("black")).thenReturn(facultyList);
+
+        ResultActions resultActions = mockMvc.perform(get("/faculty/by-color-or-name")
+                .param("color", "black")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+        );
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(content().json(objectMapper.writeValueAsString(facultyList)));
 
     }
     @Test
-    void shouldGetFacultyOfColor() throws Exception {
+    void shouldGetFacultyOfName() throws Exception {
+        Faculty faculty=new Faculty();
+        faculty.setId(1l);
+        faculty.setName("Home");
+        faculty.setColor("black");
+
+        Faculty faculty1=new Faculty();
+        faculty1.setId(2l);
+        faculty1.setName("Rive");
+        faculty1.setColor("black");
+
+        List<Faculty> facultyList =new ArrayList<>();
+        facultyList.add(faculty);
+        facultyList.add(faculty1);
+
+
+        when(facultyService.facultiesFindByName("Rive")).thenReturn(facultyList);
+
+        ResultActions resultActions = mockMvc.perform(get("/faculty/by-color-or-name")
+                .param("name", "Rive")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+        );
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(content().json(objectMapper.writeValueAsString(facultyList)));
 
     }
-    private List<Faculty> facultyList(){
-        Faculty one=new Faculty(1l,"Gari","pink",studentList());
-        Faculty two=new Faculty(2L,"Barbi","black",studentList());
-        Faculty three=new Faculty(3L,"Ilone","red",studentList());
-        return List.of(one,two,three);
-    }
-    private List<Student> studentList(){
-        Student one=new Student();
-        Student two=new Student();
-        Student three=new Student();
-        return List.of(one,two,three);
-    }
+
 
 
 }

@@ -13,6 +13,7 @@ import ru.hogwarts.magic_school.model.Faculty;
 import ru.hogwarts.magic_school.model.Student;
 import ru.hogwarts.magic_school.service.StudentService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
@@ -35,7 +36,10 @@ public class StudentControllerWebMvcTest {
     @Test
     void shouldGetStudentById() throws Exception {
 
-        Student student = prepareStudent();
+        Student student = new Student();
+        student.setId(1l);
+        student.setName("Gari");
+        student.setAge(20);
         when(studentService.get(1)).thenReturn(student);
 
         ResultActions resultActions = mockMvc.perform(get("/student/1")
@@ -65,7 +69,10 @@ public class StudentControllerWebMvcTest {
 
     @Test
     void shouldGetFacultyByStudentId() throws Exception {
-        Faculty faculty = prepareFaculty();
+        Faculty faculty = new Faculty();
+        faculty.setId(1l);
+        faculty.setName("Home");
+        faculty.setColor("black");
 
         when(studentService.getFacultyByStudent(1)).thenReturn(faculty);
 
@@ -85,8 +92,10 @@ public class StudentControllerWebMvcTest {
 
     @Test
     void shouldCreateStudent() throws Exception {
-
-        Student student = prepareStudent();
+        Student student = new Student();
+        student.setId(1l);
+        student.setName("Gari");
+        student.setAge(20);
 
         when(studentService.add(student)).thenReturn(student);
 
@@ -106,7 +115,10 @@ public class StudentControllerWebMvcTest {
 
     @Test
     void shouldUpdateStudent() throws Exception {
-        Student student = prepareStudent();
+        Student student = new Student();
+        student.setId(1l);
+        student.setName("Gari");
+        student.setAge(20);
 
         when(studentService.update(student)).thenReturn(student);
 
@@ -137,7 +149,10 @@ public class StudentControllerWebMvcTest {
 
     @Test
     void shouldDeleteStudentById() throws Exception {
-        Student student = prepareStudent();
+        Student student = new Student();
+        student.setId(1l);
+        student.setName("Gari");
+        student.setAge(20);
 
         ResultActions resultActions = mockMvc.perform(delete("/student/1")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -150,7 +165,18 @@ public class StudentControllerWebMvcTest {
 
     @Test
     void shouldGetStudentByAge() throws Exception {
-        List<Student> studentList = prepareStudentsList();
+        Student student = new Student();
+        student.setId(1l);
+        student.setName("Gari");
+        student.setAge(20);
+        Student student1 = new Student();
+        student.setId(12l);
+        student.setName("Ilona");
+        student.setAge(25);
+        List<Student> studentList =new ArrayList<>();
+        studentList.add(student);
+        studentList.add(student1);
+
 
         when(studentService.studentsInAge(25)).thenReturn(studentList);
 
@@ -168,7 +194,17 @@ public class StudentControllerWebMvcTest {
 
     @Test
     void shouldGetStudentByAgeBetween() throws Exception {
-      List<Student> studentList = prepareStudentsList();
+        Student student = new Student();
+        student.setId(1l);
+        student.setName("Gari");
+        student.setAge(20);
+        Student student1 = new Student();
+        student.setId(12l);
+        student.setName("Ilona");
+        student.setAge(25);
+        List<Student> studentList =new ArrayList<>();
+        studentList.add(student);
+        studentList.add(student1);
         when(studentService.getStudentByAgeBetween(22, 25)).thenReturn(studentList);
 
         ResultActions resultActions = mockMvc.perform(get("/student/by-age-between")
