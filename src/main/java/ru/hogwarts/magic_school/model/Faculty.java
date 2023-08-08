@@ -3,15 +3,16 @@ package ru.hogwarts.magic_school.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
+
 import java.util.List;
 
 @Data
 @EqualsAndHashCode
 @ToString
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Faculty {
     @Id
     @GeneratedValue
@@ -27,13 +28,5 @@ public class Faculty {
     private List<Student> student;
 
 
-    public Faculty() {
 
-    }
-    public Faculty(Long id, String name, String color, List<Student> student) {
-        this.id = id;
-        this.name = name;
-        this.color = color;
-        this.student = student;
-    }
 }

@@ -1,14 +1,14 @@
 package ru.hogwarts.magic_school.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 @Data
 @EqualsAndHashCode
 @ToString
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Student {
 
     @Id
@@ -16,20 +16,11 @@ public class Student {
     private Long id;
 
     private String name;
+
     private int age;
 
     @ManyToOne()
     @JoinColumn(name="faculty_id")
     private Faculty faculty;
 
-    public Student(Long id, String name, int age, Faculty faculty) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.faculty = faculty;
-    }
-
-    public Student() {
-
-    }
 }
