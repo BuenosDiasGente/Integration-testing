@@ -87,17 +87,13 @@ public class FacultyControllerRestTest {
         Assertions.assertThat(facultyRepository.findById(1L)).isEmpty();
 
     }
-//    @Test
-//    void shouldGetFacultyByColor() throws Exception {
-//
-//
-//        List<Faculty> facultyList =new ArrayList<>();
-//
-//
-//        when(facultyService.facultiesFindByColor("black")).thenReturn(facultyList);
-//
-//
-//    }
+
+    @Test
+    void shouldGetFacultyByColor() throws Exception {
+        List<Faculty> facultyList = facultysList();
+     //   ResponseEntity<Faculty> response = testRestTemplate.exchange("/faculty/by-color?color=black", HttpMethod.GET, new HttpEntity<>(facultyList), String.class);
+       // Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
 //
 //
 //
