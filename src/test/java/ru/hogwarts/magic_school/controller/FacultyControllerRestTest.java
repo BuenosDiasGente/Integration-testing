@@ -1,5 +1,7 @@
 package ru.hogwarts.magic_school.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -14,6 +16,7 @@ import ru.hogwarts.magic_school.model.Faculty;
 import ru.hogwarts.magic_school.model.Student;
 import ru.hogwarts.magic_school.repository.FacultyRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static ru.hogwarts.magic_school.controller.PepareTestObject.*;
@@ -32,18 +35,16 @@ public class FacultyControllerRestTest {
     }
 
     @Test
-    void shouldGetFacultyById() throws Exception {
+    void shouldGetFacultyById() {
         Faculty faculty = facultyObject();
         facultyRepository.save(faculty);
         ResponseEntity<Faculty> response = testRestTemplate.getForEntity("/faculty/1", Faculty.class);
         Assertions.assertThat(response.getBody()).isNotNull();
         Assertions.assertThat(response.getBody().getId()).isEqualTo(faculty.getId());
-
     }
 
-
     @Test
-    void shouldGetListStudentByFacultyId() throws Exception {
+    void shouldGetListStudentByFacultyId() {
         Faculty faculty = facultyObject();
         facultyRepository.save(faculty);
         Student student = studentObject();
@@ -51,11 +52,10 @@ public class FacultyControllerRestTest {
         ResponseEntity<Faculty> response = testRestTemplate.exchange("/faculty/1/student", HttpMethod.GET, new HttpEntity<>(studentList), Faculty.class);
         Assertions.assertThat(response.getBody()).isNotNull();
         Assertions.assertThat(response.getBody().getStudent()).isEqualTo(faculty.getStudent());
-
     }
 
     @Test
-    void shouldCreateFaculty() throws Exception {
+    void shouldCreateFaculty() {
         Faculty faculty = facultyObject();
         ResponseEntity<Faculty> response = testRestTemplate.postForEntity("/faculty", faculty, Faculty.class);
 
@@ -64,64 +64,92 @@ public class FacultyControllerRestTest {
         Assertions.assertThat(response.getBody().getId()).isEqualTo(faculty.getId());
         Assertions.assertThat(response.getBody().getName()).isEqualTo(faculty.getName());
         Assertions.assertThat(response.getBody().getColor()).isEqualTo(faculty.getColor());
-
     }
 
     @Test
-    void shouldUpdateFaculty() throws Exception {
-
+    void shouldUpdateFaculty() {
         Faculty faculty = facultyObject();
+        facultyRepository.save(faculty);
         ResponseEntity<Faculty> response = testRestTemplate.exchange("/faculty", HttpMethod.PUT, new HttpEntity<>(faculty), Faculty.class);
         Assertions.assertThat(response.getBody()).isNotNull();
         Assertions.assertThat(response.getBody().getId()).isEqualTo(faculty.getId());
         Assertions.assertThat(response.getBody().getName()).isEqualTo(faculty.getName());
         Assertions.assertThat(response.getBody().getColor()).isEqualTo(faculty.getColor());
-
     }
 
     @Test
-    void shouldDeleteFacultyById() throws Exception {
+    void shouldDeleteFacultyById() {
         Faculty faculty = facultyObject();
         facultyRepository.save(faculty);
         testRestTemplate.delete("/faculty/1");
         Assertions.assertThat(facultyRepository.findById(1L)).isEmpty();
-
     }
 
     @Test
     void shouldGetFacultyByColor() throws Exception {
-        List<Faculty> facultyList = facultysList();
-     //   ResponseEntity<Faculty> response = testRestTemplate.exchange("/faculty/by-color?color=black", HttpMethod.GET, new HttpEntity<>(facultyList), String.class);
-       // Assertions.assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Faculty faculty = facultyCreateBd("Home", "black");
+        Faculty faculty1 = facultyCreateBd("Multi", "red");
+        Faculty faculty2 = facultyCreateBd("Garden", "pink");
+        List<Faculty> facultyList = new ArrayList<>();
+        facultyList.add(0, faculty);
+        facultyList.add(1, faculty1);
+        facultyList.add(2, faculty2);
+
+        ResponseEntity<String> responce = testRestTemplate.exchange("/faculty/by-color?color=black", HttpMethod.GET, new HttpEntity<>(facultyList), String.class);
+        Assertions.assertThat(responce.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Assertions.assertThat(responce.getBody()).isNotNull();
+        Assertions.assertThat(parseResultFaculty(responce.getBody()).equals(faculty.getColor()));
     }
-//
-//
-//
-//    @Test
-//    void shouldGetFacultyOfColor() throws Exception {
-//
-//
-//
-//        List<Faculty> facultyList =new ArrayList<>();
-//
-//
-//
-//        when(facultyService.facultiesFindByColor("black")).thenReturn(facultyList);
-//
-//
-//    }
-//    @Test
-//    void shouldGetFacultyOfName() throws Exception {
-//
-//
-//        List<Faculty> facultyList =new ArrayList<>();
-//
-//
-//
-//        when(facultyService.facultiesFindByName("Rive")).thenReturn(facultyList);
-//
-//
-//    }
 
 
+    @Test
+    void shouldGetFacultyOfColor() throws Exception {
+        Faculty faculty = facultyCreateBd("Home", "black");
+        Faculty faculty1 = facultyCreateBd("Multi", "red");
+        Faculty faculty2 = facultyCreateBd("Garden", "pink");
+        List<Faculty> facultyList = new ArrayList<>();
+        facultyList.add(0, faculty);
+        facultyList.add(1, faculty1);
+        facultyList.add(2, faculty2);
+
+        ResponseEntity<String> responce = testRestTemplate.exchange("/faculty/by-color-or-name?color=black", HttpMethod.GET, new HttpEntity<>(facultyList), String.class);
+        Assertions.assertThat(responce.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Assertions.assertThat(responce.getBody()).isNotNull();
+        Assertions.assertThat(parseResultFaculty(responce.getBody()).equals(faculty.getColor()));
+    }
+
+    @Test
+    void shouldGetFacultyOfName()throws Exception {
+        Faculty faculty = facultyCreateBd("Home", "black");
+        Faculty faculty1 = facultyCreateBd("Multi", "red");
+        Faculty faculty2 = facultyCreateBd("Garden", "pink");
+        List<Faculty> facultyList = new ArrayList<>();
+        facultyList.add(0, faculty);
+        facultyList.add(1, faculty1);
+        facultyList.add(2, faculty2);
+        ResponseEntity<String> responce = testRestTemplate.exchange("/faculty/by-color-or-name?name=Home", HttpMethod.GET, new HttpEntity<>(facultyList), String.class);
+        Assertions.assertThat(responce.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Assertions.assertThat(responce.getBody()).isNotNull();
+        Assertions.assertThat(parseResultFacultyValueName(responce.getBody()).equals(faculty.getName()));
+    }
+
+    private String parseResultFaculty(String responce) throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(responce);
+        String result = jsonNode.get(0).get("color").asText();
+        return result;
+    }
+
+    private String parseResultFacultyValueName(String responce) throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(responce);
+        String result = jsonNode.get(0).get("name").asText();
+        return result;
+    }
+    private Faculty facultyCreateBd(String name, String color) {
+        Faculty faculty = new Faculty();
+        faculty.setName(name);
+        faculty.setColor(color);
+        return facultyRepository.save(faculty);
+    }
 }
