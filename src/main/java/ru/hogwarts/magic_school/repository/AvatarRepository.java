@@ -5,6 +5,7 @@ import ru.hogwarts.magic_school.model.Avatar;
 
 import java.util.Optional;
 
-public interface AvatarRepository extends JpaRepository<Avatar,Long> {
-    Optional<Avatar>findByStudentId(Long studentId);
+public interface AvatarRepository extends JpaRepository<Avatar, Long> {
+    Optional<Avatar> findByStudentId(Long studentId);
+
 }

@@ -1,32 +1,31 @@
 package ru.hogwarts.magic_school.service.impl;
 
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.hogwarts.magic_school.model.Avatar;
 import ru.hogwarts.magic_school.model.Student;
 import ru.hogwarts.magic_school.repository.AvatarRepository;
-import ru.hogwarts.magic_school.repository.StudentRepository;
 import ru.hogwarts.magic_school.service.AvatarService;
 import ru.hogwarts.magic_school.service.StudentService;
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
 @Service
+@RequiredArgsConstructor
 @Transactional
 public class AvatarServiceImpl implements AvatarService {
     private final AvatarRepository avatarRepository;
     private final StudentService studentService;
 
-    public AvatarServiceImpl(AvatarRepository avatarRepository, StudentRepository studentRepository, StudentService studentService) {
-        this.avatarRepository = avatarRepository;
-        this.studentService = studentService;
-    }
 
     @Value(value = "${path.to.avatars.folder}")
     private String avatarsDir;
@@ -55,11 +54,16 @@ public class AvatarServiceImpl implements AvatarService {
         avatarRepository.save(avatar);
     }
 
-
     @Override
     public Avatar findAvatar(Long studentId) {
 
         return avatarRepository.findByStudentId(studentId).orElse(new Avatar());
+    }
+
+    @Override
+    public List<Avatar> getAvatar(int pageNumber, int pageSize) {
+        PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
+        return avatarRepository.findAll(pageRequest).getContent();
     }
 
 
