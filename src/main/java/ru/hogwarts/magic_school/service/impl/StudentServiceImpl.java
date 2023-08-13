@@ -1,23 +1,12 @@
 package ru.hogwarts.magic_school.service.impl;
 
-import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import ru.hogwarts.magic_school.model.Avatar;
 import ru.hogwarts.magic_school.model.Faculty;
 import ru.hogwarts.magic_school.model.Student;
-import ru.hogwarts.magic_school.repository.AvatarRepository;
 import ru.hogwarts.magic_school.repository.StudentRepository;
 import ru.hogwarts.magic_school.service.StudentService;
 
-
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
-
-import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
 @Service
 
@@ -70,6 +59,21 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Faculty getFacultyByStudent(long id) {
         return studentRepository.findById(id).get().getFaculty();
+    }
+
+    @Override
+    public int getAllCountStudent() {
+        return studentRepository.getAllStudent();
+    }
+
+    @Override
+    public int middleAgeByStudents() {
+        return studentRepository.middleAgeByStudents();
+    }
+
+    @Override
+    public List<Student> getTheLastFiveStudents() {
+        return studentRepository.getTheLastFiveStudents();
     }
 
 

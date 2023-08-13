@@ -1,5 +1,6 @@
 package ru.hogwarts.magic_school.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.magic_school.model.Faculty;
@@ -9,14 +10,11 @@ import ru.hogwarts.magic_school.service.FacultyService;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/faculty")
 public class FacultyController {
     private final FacultyService facultyService;
 
-    public FacultyController(FacultyService facultyService) {
-
-        this.facultyService = facultyService;
-    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Faculty> get(@PathVariable Long id) {
