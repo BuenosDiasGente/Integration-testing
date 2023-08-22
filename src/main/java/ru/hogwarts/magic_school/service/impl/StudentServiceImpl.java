@@ -9,7 +9,9 @@ import ru.hogwarts.magic_school.repository.StudentRepository;
 import ru.hogwarts.magic_school.service.StudentService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import static java.lang.Double.sum;
 import static ru.hogwarts.magic_school.constant.Constant.*;
 
 @Service
@@ -86,5 +88,22 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.getTheLastFiveStudents();
     }
 
+    @Override
+    public List<String> getAllNamesWithTheLetterA() {
+        return studentRepository.findAll().stream()
+                .filter(s -> s.getName().startsWith("A"))
+                .map(a -> a.getName().toUpperCase())
+                .sorted()
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Integer getAverageAgeOfAllStudents() {
+        return (int) studentRepository.findAll()
+                .stream()
+                .map(Student::getAge)
+                .mapToInt(a -> a)
+                .average().orElse(0);
+    }
 
 }

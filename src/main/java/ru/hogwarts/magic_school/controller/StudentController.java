@@ -73,22 +73,43 @@ public class StudentController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Integer>getCountAllStudent() {
-        int countAllStudent=studentService.getAllCountStudent();
+    public ResponseEntity<Integer> getCountAllStudent() {
+        int countAllStudent = studentService.getAllCountStudent();
         return ResponseEntity.ok(countAllStudent);
     }
 
     @GetMapping("/middle-age")
-    public ResponseEntity<Integer>middleAgeByStudents() {
-        int middleAge= studentService.middleAgeByStudents();
+    public ResponseEntity<Integer> middleAgeByStudents() {
+        int middleAge = studentService.middleAgeByStudents();
         return ResponseEntity.ok(middleAge);
     }
 
     @GetMapping("/last-5")
-    public ResponseEntity<List<Student>>getTheLastFiveStudents() {
-        List<Student> student=studentService.getTheLastFiveStudents();
+    public ResponseEntity<List<Student>> getTheLastFiveStudents() {
+        List<Student> student = studentService.getTheLastFiveStudents();
         return ResponseEntity.ok(student);
     }
+
+    @GetMapping("/name-with-a")
+    public ResponseEntity<List<String>> getAllNamesWithTheLetterA() {
+        List<String> student = studentService.getAllNamesWithTheLetterA();
+        return ResponseEntity.ok(student);
+    }
+
+    @GetMapping("/average-all-student")
+    public ResponseEntity<Integer> getAverageAgeOfAllStudents() {
+        int averageAge = studentService.getAverageAgeOfAllStudents();
+        return ResponseEntity.ok(averageAge);
+
+    }
+
+//    @GetMapping("/integer-number")
+//
+//    public Integer> getNumber() {
+//        int averageAge = studentService.getAverageAgeOfAllStudents();
+//        return ResponseEntity.ok(averageAge);
+//
+//    }
 
 
 }
