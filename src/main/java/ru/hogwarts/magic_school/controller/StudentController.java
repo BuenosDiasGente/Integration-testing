@@ -103,13 +103,11 @@ public class StudentController {
 
     }
 
-//    @GetMapping("/integer-number")
-//
-//    public Integer> getNumber() {
-//        int averageAge = studentService.getAverageAgeOfAllStudents();
-//        return ResponseEntity.ok(averageAge);
-//
-//    }
+    @GetMapping("/integer-number")
+    public Integer getNumber(){
+        return studentService.getNumber();
+    }
+
 
 
 }

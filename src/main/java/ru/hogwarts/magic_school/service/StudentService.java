@@ -30,4 +30,6 @@ public interface StudentService {
     List<String>getAllNamesWithTheLetterA();
 
     Integer getAverageAgeOfAllStudents();
+
+    Integer getNumber();
 }

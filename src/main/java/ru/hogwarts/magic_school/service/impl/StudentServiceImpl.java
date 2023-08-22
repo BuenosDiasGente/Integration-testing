@@ -10,8 +10,8 @@ import ru.hogwarts.magic_school.service.StudentService;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import static java.lang.Double.sum;
 import static ru.hogwarts.magic_school.constant.Constant.*;
 
 @Service
@@ -104,6 +104,14 @@ public class StudentServiceImpl implements StudentService {
                 .map(Student::getAge)
                 .mapToInt(a -> a)
                 .average().orElse(0);
+    }
+
+    @Override
+    public Integer getNumber() {
+        return Stream.iterate(1, a -> a + 1)
+                .parallel()
+                .limit(1_000_000)
+                .reduce(0, (a, b) -> a + b);
     }
 
 }
