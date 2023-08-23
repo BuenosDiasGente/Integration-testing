@@ -106,6 +106,7 @@ public class StudentServiceImpl implements StudentService {
                 .average().orElse(0);
     }
 
+
     @Override
     public Integer getNumber() {
         return Stream.iterate(1, a -> a + 1)
@@ -113,5 +114,6 @@ public class StudentServiceImpl implements StudentService {
                 .limit(1_000_000)
                 .reduce(0, (a, b) -> a + b);
     }
+
 
 }
