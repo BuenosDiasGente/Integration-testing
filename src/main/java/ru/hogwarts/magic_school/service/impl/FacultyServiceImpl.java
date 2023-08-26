@@ -9,6 +9,7 @@ import ru.hogwarts.magic_school.model.Student;
 import ru.hogwarts.magic_school.repository.FacultyRepository;
 import ru.hogwarts.magic_school.service.FacultyService;
 
+import java.util.Comparator;
 import java.util.List;
 
 import static ru.hogwarts.magic_school.constant.Constant.*;
@@ -72,6 +73,14 @@ public class FacultyServiceImpl implements FacultyService {
     public List<Student> getStudentByFaculty(Long id) {
         logger.info("Method getStudentByFaculty was invoked.");
         return facultyRepository.findById(id).get().getStudent();
+    }
+
+    @Override
+    public String getFacultiesLongestName(){
+        return String.valueOf(facultyRepository.findAll()
+                .stream()
+                .map(Faculty::getName)
+                .max(Comparator.comparingInt(String::length)));
     }
 
 }

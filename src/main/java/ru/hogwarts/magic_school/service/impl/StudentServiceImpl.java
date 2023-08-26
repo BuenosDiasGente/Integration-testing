@@ -9,6 +9,8 @@ import ru.hogwarts.magic_school.repository.StudentRepository;
 import ru.hogwarts.magic_school.service.StudentService;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static ru.hogwarts.magic_school.constant.Constant.*;
 
@@ -84,6 +86,33 @@ public class StudentServiceImpl implements StudentService {
     public List<Student> getTheLastFiveStudents() {
         logger.info("Method getTheLastFiveStudents was invoked.");
         return studentRepository.getTheLastFiveStudents();
+    }
+
+    @Override
+    public List<String> getAllNamesWithTheLetterA() {
+        return studentRepository.findAll().stream()
+                .filter(s -> s.getName().startsWith("A"))
+                .map(a -> a.getName().toUpperCase())
+                .sorted()
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Integer getAverageAgeOfAllStudents() {
+        return (int) studentRepository.findAll()
+                .stream()
+                .map(Student::getAge)
+                .mapToInt(a -> a)
+                .average().orElse(0);
+    }
+
+
+    @Override
+    public Integer getNumber() {
+        return Stream.iterate(1, a -> a + 1)
+                .parallel()
+                .limit(1_000_000)
+                .reduce(0, (a, b) -> a + b);
     }
 
 
