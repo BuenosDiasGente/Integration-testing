@@ -41,15 +41,6 @@ public class StudentControllerRestTest {
         Assertions.assertThat(response.getBody().getId()).isEqualTo(studentId);
     }
 
-//      @Test
-//    void shouldGetFacultyByStudentId() {
-//        Faculty faculty = new Faculty(1L, "Home", "black", studentsList());
-//        Long studentId = studentCreateBd("Gari", 19).getId();
-//        ResponseEntity<Faculty> response = testRestTemplate.getForEntity("/student/{id}/faculty", Faculty.class,studentId);
-//        Assertions.assertThat(response.getBody()).isNotNull();
-//        Assertions.assertThat(response.getBody()).isEqualTo(faculty);
-//    }
-    //Метод не работает,не правильная логика.Получается факультет  null, я его не могу добавить в базу к студенту.
     @Test
     void shouldCreateStudent() {
         Student student = new Student();
@@ -128,11 +119,5 @@ public class StudentControllerRestTest {
         return studentRepository.save(student);
     }
 
-    private Faculty facultyCreateBd(String name, String color) {
-        Faculty faculty = new Faculty();
-        faculty.setName(name);
-        faculty.setColor(color);
-        return faculty;
-    }
 
 }
