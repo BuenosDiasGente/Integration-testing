@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 
-@Data
+
 @EqualsAndHashCode
 @ToString
 @Entity
@@ -36,5 +36,9 @@ public class Avatar {
 
     public Avatar() {
 
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
